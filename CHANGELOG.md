@@ -1,3 +1,6 @@
+## [2.0.0-alpha.1] - 2021-10-8
+- add ThisWidget.count and ThisWidget.builder as GridView.
+
 ## [1.2.0-alpha.1] - 2021-9-25
 - look like the official MultiDragGestureRecognizer api has changed after(maybe earlier) flutter 2.5.1
 
