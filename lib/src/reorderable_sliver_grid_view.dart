@@ -78,3 +78,51 @@ class ReorderableSliverGridView extends StatelessWidget {
   }
 
 }
+
+// Can I be a stateful widget, because we need update the state. Ok, let's try this.
+class ReorderableSliverGridViewBuilder extends StatelessWidget {
+  // can I hold the children? let's try.
+  final int crossAxisCount;
+  final double mainAxisSpacing;
+  final double crossAxisSpacing;
+  final double childAspectRatio;
+
+  final SliverGrid childSliverGrid;
+  final ReorderCallback onReorder;
+  final DragWidgetBuilder? dragWidgetBuilder;
+  final ScrollSpeedController? scrollSpeedController;
+
+  // can we do the logic?
+
+  const ReorderableSliverGridViewBuilder({
+    Key? key,
+    required this.childSliverGrid,
+    required this.crossAxisCount,
+    required this.mainAxisSpacing,
+    required this.crossAxisSpacing,
+    required this.childAspectRatio,
+
+    required this.onReorder,
+    this.dragWidgetBuilder,
+    this.scrollSpeedController,
+  }): super(key: key);
+
+
+  // build the new child??
+  @override
+  Widget build(BuildContext context) {
+    // we can't wrapper this?
+    return ReorderableGridWrapperView(
+      child: childSliverGrid,
+      crossAxisCount: crossAxisCount,
+      crossAxisSpacing: crossAxisSpacing,
+      mainAxisSpacing: mainAxisSpacing,
+      childAspectRatio: childAspectRatio,
+      onReorder: onReorder,
+      dragWidgetBuilder: dragWidgetBuilder,
+      scrollSpeedController: scrollSpeedController,
+    );
+
+  }
+
+}
