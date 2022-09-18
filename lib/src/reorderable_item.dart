@@ -99,7 +99,7 @@ class ReorderableItemViewState extends State<ReorderableItemView> with TickerPro
 
   // Ok, for now we use multiDragRecognizer
   MultiDragGestureRecognizer _createDragRecognizer() {
-    return DelayedMultiDragGestureRecognizer(debugOwner: this);
+    return DelayedMultiDragGestureRecognizer(delay: Duration(milliseconds: 300), debugOwner: this);
   }
 
   @override
