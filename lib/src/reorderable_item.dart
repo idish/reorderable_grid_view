@@ -57,6 +57,7 @@ class ReorderableItemViewState extends State<ReorderableItemView> with TickerPro
 
   /// We can only check the items between startIndex and the targetIndex, but for simply, we check all <= targetDropIndex
   void updateForGap(int targetDropIndex) {
+
     // Actually I can use only use the targetDropIndex to decide the target pos, but what to do I change middle
     if (!mounted) return;
     // How can I calculate the target?

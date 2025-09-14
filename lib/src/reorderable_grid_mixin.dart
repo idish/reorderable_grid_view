@@ -49,7 +49,7 @@ mixin ReorderableGridStateMixin<T extends ReorderableGridWidgetMixin> on State<T
   // how to return row, col?
 
   // The pos is relate to the container's 0, 0
-  Offset getPos(int index, {bool safe = true}) {
+  Offset getPos(int index, bool isRTL, {bool safe = true}) {
     if (safe) {
       if (index < 0) {
         index = 0;
@@ -74,6 +74,11 @@ mixin ReorderableGridStateMixin<T extends ReorderableGridWidgetMixin> on State<T
 
     int row = index ~/ widget.crossAxisCount;
     int col = index % widget.crossAxisCount;
+
+    // Change column direction if rtl..
+    if (isRTL) {
+      col = widget.crossAxisCount -1 - col;
+    }
 
     double x = (col - 1) * (itemWidth + widget.crossAxisSpacing);
     double y = (row - 1) *
@@ -110,9 +115,16 @@ mixin ReorderableGridStateMixin<T extends ReorderableGridWidgetMixin> on State<T
       return Offset.zero;
     }
 
+
+    final TextDirection currentDirection = Directionality.of(context);
+    final bool isRTL = currentDirection == TextDirection.rtl;
+
     // ok now we check.
     bool inDragRange = false;
     bool isMoveLeft = _dropIndex! > _dragIndex!;
+    // if (isRTL) {
+    //   isMoveLeft = !isMoveLeft;
+    // }
 
     int minPos = min(_dragIndex!, _dropIndex!);
     int maxPos = max(_dragIndex!, _dropIndex!);
@@ -125,9 +137,10 @@ mixin ReorderableGridStateMixin<T extends ReorderableGridWidgetMixin> on State<T
       return Offset.zero;
     } else {
       if (isMoveLeft) {
-        return getPos(index - 1) - getPos(index);
+        return getPos(index - 1, isRTL) - getPos(index, isRTL);
       } else {
-        return getPos(index + 1) - getPos(index);
+        return getPos(index + 1, isRTL) - getPos(index, isRTL);
+
       }
     }
   }
